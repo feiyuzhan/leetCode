@@ -5,14 +5,23 @@
 | 具体组件 | ByteArrayInPutStream  |
 | 抽象装饰  FitlerInPutStream |BufferInPutStream / DataInPutStream ObjectInPutStream|
 
- 1. public **abstract** class InputStream  **extends** Object
+ 1. public abstract class InputStream extends Object
 implements Closeable
 这个抽象类是表示输入字节流的所有类的超类，提供read、close等方法
- 2. public class FileInputStream  **extends** InputStream
+
+ 2. public class FileInputStream  extends InputStream
 FileInputStream用于读取诸如图像数据的原始字节流。 要阅读字符串，请考虑使用FileReader 。
- 3. public class ByteArrayInputStream **extends** InputStream   ByteArrayInputStream包含一个内部缓冲区，其中包含可以从流中读取的字节。 内部计数器跟踪read方法要提供的下一个字节。 
+
+ 3. public class ByteArrayInputStream extends InputStream   ByteArrayInputStream包含一个内部缓冲区，其中包含可以从流中读取的字节。 内部计数器跟踪read方法要提供的下一个字节。 
 关闭ByteArrayInputStream没有任何效果。 在关闭流之后，可以调用此类中的方法，而不生成IOException 。
- 4. public class FilterInputStream **extends** InputStream
- FilterInputStream包含一些其他输入流，它用作其基本的数据源，可能会沿途转换数据或 **提供附加功能** 。 FilterInputStream本身简单地覆盖了所有InputStream的方法， InputStream版本将所有请求传递给包含的输入流。 FilterInputStream的FilterInputStream可以进一步覆盖这些方法中的一些，并且还可以提供附加的方法和领域。 
+
+ 4. public class FilterInputStream  extends InputStream
+ FilterInputStream包含一些其他输入流，它用作其基本的数据源，可能会沿途转换数据或 提供附加功能 。 FilterInputStream本身简单地覆盖了所有InputStream的方法， InputStream版本将所有请求传递给包含的输入流。 FilterInputStream的FilterInputStream可以进一步覆盖这些方法中的一些，并且还可以提供附加的方法和领域。 
+ 
+ 5.public class BufferedInputStream extends FilterInputStreamA BufferedInputStream为另一个输入流添加了功能，即缓冲输入和支持mark和reset方法的功能。 当创建BufferedInputStream时，将创建一个内部缓冲区数组。 当从流中读取或跳过字节时，内部缓冲区将根据需要从所包含的输入流中重新填充，一次有多个字节。 mark操作会记住输入流中的一点，并且reset操作会导致从最近的mark操作之后读取的所有字节在从包含的输入流中取出新的字节之前重新读取。 
+ 例如
+```
+BufferInPutStream  is = new BufferInPutStream( new FileInPutStream (new File "Path");
+```
 
 
